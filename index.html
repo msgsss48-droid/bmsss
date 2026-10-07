@@ -178,13 +178,23 @@ a.card{display:block}
 
 <script>
 // ===== EDIT HERE =====
-// Add your school photos: put image files in the same folder and list them, e.g. "photos/school1.jpg"
-var SCHOOL_PHOTO = "SCHOOL_PHOTO.JPEG"; // main school photo for the top hero, e.g. "photos/school.jpg"
-var GALLERY_PHOTOS = []; // e.g. ["photos/g1.jpg","photos/g2.jpg"]
+var SCHOOL_PHOTO = "SCHOOL_PHOTO.JPEG"; // main school photo for the top hero
+// Slideshow photos (explicit list). Files live in the "photos" folder; names are URL-encoded.
+var PHOTOS = [
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.08.20%20PM.jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.09.30%20PM.jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.28%20PM%20(1).jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.28%20PM.jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.29%20PM%20(1).jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.29%20PM.jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.30%20PM%20(1).jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.30%20PM%20(2).jpeg",
+  "photos/WhatsApp%20Image%202026-10-07%20at%206.10.30%20PM.jpeg"
+];
+var GALLERY_PHOTOS = PHOTOS; // same photos in the gallery
 var GALLERY_VIDEOS = []; // e.g. ["videos/annual-day.mp4"]
-var PHOTOS = []; // empty = placeholder slides shown
 var PLACEHOLDERS = ["School Building","Assembly Ground","Classroom","Science Lab","Sports Day","Cultural Programme","Library","Students"];
-// Side-menu links: "page" = the HTML page that opens when clicked (change to any link you like), "file" = its PDF
+// Side-menu links: "page" = the HTML page that opens when clicked, "file" = its PDF
 var DOCS = [
   {t:"Affiliation",file:"Affiliation.pdf",page:"affiliation.html"},
   {t:"Building Safety Certificate",file:"BUILDING-SAFETY-CERTIFATE.pdf",page:"building-safety-certificate.html"},
@@ -285,34 +295,6 @@ var lb=document.getElementById("lb");
 function openLb(src){document.getElementById("lbImg").style.backgroundImage="url('"+src+"')";lb.classList.add("show");}
 document.getElementById("lbClose").onclick=function(){lb.classList.remove("show")};
 lb.onclick=function(e){if(e.target===lb)lb.classList.remove("show")};
-
-// ---- Auto-load every image in the "photos" folder into the slideshow (loops forever) ----
-function natural(a,b){return a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});}
-function probe(cb){
-  var exts=["jpg","jpeg","png","webp"],found=[],pending=0,N=60;
-  for(var n=1;n<=N;n++){exts.forEach(function(e){
-    pending++;
-    var im=new Image(),name="photos/"+n+"."+e;
-    im.onload=function(){found.push(name);if(--pending===0)cb(found.sort(natural));};
-    im.onerror=function(){if(--pending===0)cb(found.sort(natural));};
-    im.src=name;
-  });}
-}
-function discoverPhotos(cb){
-  fetch("photos/").then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
-    var found=[],re=/href="([^"?#]+\.(?:jpe?g|png|webp|gif))"/gi,m;
-    while((m=re.exec(t))){found.push("photos/"+encodeURI(decodeURIComponent(m[1]).split("/").pop()));}
-    if(!found.length)throw 0;
-    cb(found.sort(natural));
-  }).catch(function(){probe(cb);});
-}
-if(!PHOTOS.length){
-  discoverPhotos(function(found){
-    if(!found.length)return;
-    buildSlides(found);
-    if(!GALLERY_PHOTOS.length){var gp=document.getElementById("galPhotos");gp.innerHTML="";fillGallery(gp,found,"Photo",false);}
-  });
-}
 </script>
 </body>
 </html>
