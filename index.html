@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Govt. Sr. Sec. School Bermiok Martam</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--text:#1b2433;--muted:#5b6678;--brand:#0b3d91;--accent:#f2a900;--line:#dde3ee;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1520;--card:#182131;--text:#e8edf6;--muted:#9aa7bd;--brand:#5b8def;--line:#2a364b}}
+:root[data-theme="dark"]{--bg:#0f1520;--card:#182131;--text:#e8edf6;--muted:#9aa7bd;--brand:#5b8def;--line:#2a364b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}
+.hero{position:relative;min-height:100vh;color:#fff;display:flex;flex-direction:column;overflow:hidden;background:#0b2a5e}
+.bg,.slide{position:absolute;inset:0;background-size:cover;background-position:center}
+.bg{background-image:linear-gradient(160deg,#0b3d91,#12638c 55%,#2c8a5b)}
+.slide{opacity:0;transition:opacity 1s}
+.slide.active{opacity:1}
+.slide span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(14px,2vw,18px);opacity:.55;text-align:center;padding:0 12px}
+.shade{position:absolute;inset:0;background:linear-gradient(rgba(5,15,40,.55),rgba(5,15,40,.65))}
+.top{position:relative;z-index:3;display:flex;align-items:center;gap:14px;padding:14px 18px}
+.burger{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;width:44px;height:44px;border-radius:10px;font-size:22px;cursor:pointer}
+.top b{font-size:clamp(13px,2.6vw,18px);letter-spacing:.3px}
+.content{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px}
+.content h1{margin:0 0 8px;font-size:clamp(26px,5.5vw,52px);line-height:1.15}
+.slogan{font-size:clamp(18px,3vw,28px);color:var(--accent);font-weight:700;letter-spacing:3px;margin:6px 0 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:14px}
+.meta span{background:rgba(255,255,255,.15);padding:5px 12px;border-radius:99px}
+.arrow{position:absolute;top:50%;z-index:3;transform:translateY(-50%);background:rgba(0,0,0,.4);border:0;color:#fff;font-size:26px;width:44px;height:44px;border-radius:50%;cursor:pointer}
+.arrow.l{left:10px}.arrow.r{right:10px}
+.dots{position:relative;z-index:3;display:flex;gap:8px;justify-content:center;padding:16px}
+.dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer}
+.dots i.on{background:var(--accent)}
+.side{position:fixed;top:0;left:0;bottom:0;width:min(300px,85vw);background:var(--card);z-index:10;transform:translateX(-100%);transition:transform .3s;overflow-y:auto;padding:env(safe-area-inset-top,0px) 0 20px;box-shadow:4px 0 20px rgba(0,0,0,.3)}
+.side.open{transform:none}
+.side h3{margin:0;padding:18px;background:var(--brand);color:#fff;font-size:16px}
+.side a{display:block;padding:12px 18px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--line);font-size:14px}
+.side a:hover{background:var(--bg);color:var(--brand)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9;display:none}
+.overlay.show{display:block}
+section.info{max-width:1000px;margin:0 auto;padding:48px 18px}
+h2{color:var(--brand);margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--text);cursor:pointer}
+.card:hover,.card.flash{border-color:var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.card small{color:var(--muted);display:block}
+.facts{display:flex;gap:16px;flex-wrap:wrap}
+.facts div{flex:1;min-width:160px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+footer{text-align:center;padding:24px 12px;background:var(--brand);color:#fff;font-size:14px}
+.viewer{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg);z-index:20}
+.viewer.show{display:flex}
+.vbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:var(--brand);color:#fff;flex-wrap:wrap}
+.vbar a{color:#fff;margin-right:12px;font-size:14px}
+.vbar button{background:#fff;color:#0b3d91;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.viewer iframe{flex:1;border:0;width:100%;background:#fff}
+a.card{display:block}
+.vm{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:22px}
+.vm .card{cursor:default}
+.vm h3{margin:0 0 8px;color:var(--brand)}
+.vm ul{margin:0;padding-left:20px}
+.vm li{margin-bottom:6px}
+.motto{margin-top:22px;text-align:center;font-size:clamp(18px,3vw,26px);font-weight:700;color:var(--brand);border-top:3px solid var(--accent);border-bottom:3px solid var(--accent);padding:14px}
+.hero{min-height:90vh}
+.carousel{position:relative;height:clamp(240px,50vw,480px);overflow:hidden;background:#0b2a5e;color:#fff}
+.carousel .dots{position:absolute;bottom:0;left:0;right:0}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{background:var(--card);color:var(--text);border:1px solid var(--line);padding:9px 20px;border-radius:99px;cursor:pointer;font-weight:600}
+.tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.gi{aspect-ratio:4/3;border-radius:12px;overflow:hidden;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;font-size:13px;padding:8px;cursor:pointer}
+.gi video{width:100%;height:100%;object-fit:cover;background:#000}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:30;display:none;align-items:center;justify-content:center;padding:16px}
+.lb.show{display:flex}
+.lb div{max-width:95vw;max-height:90vh;width:900px;aspect-ratio:4/3;background-size:contain;background-repeat:no-repeat;background-position:center;color:#fff;display:flex;align-items:center;justify-content:center}
+.lb button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:14px;background:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
+.facts a{color:var(--brand)}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+<nav class="side" id="side">
+  <h3>Documents &amp; Disclosures</h3>
+  <div id="menu"></div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="bg"></div>
+  <div class="shade"></div>
+  <div class="top">
+    <button class="burger" id="burger" aria-label="Open menu">&#9776;</button>
+    <b>GOVT. SR. SEC. SCHOOL BERMIOK MARTAM</b>
+  </div>
+  <div class="content">
+    <h1>Govt. Sr. Sec. School<br>Bermiok Martam</h1>
+    <div class="slogan">ARISE TO INSPIRE</div>
+    <div>West Sikkim</div>
+    <div class="meta" style="margin-top:14px"><span>Affiliation No: 1820103</span><span>School Code: 37301</span></div>
+  </div>
+</header>
+
+<section class="carousel" id="carousel">
+  <div id="slides"></div>
+  <button class="arrow l" id="prev" aria-label="Previous">&#8249;</button>
+  <button class="arrow r" id="next" aria-label="Next">&#8250;</button>
+  <div class="dots" id="dots"></div>
+</section>
+
+<section class="info" id="gallery">
+  <h2>Photos &amp; Videos Gallery</h2>
+  <div class="tabs"><button class="tab on" data-t="photos">Photos</button><button class="tab" data-t="videos">Videos</button></div>
+  <div class="gal" id="galPhotos"></div>
+  <div class="gal" id="galVideos" style="display:none"></div>
+</section>
+
+<section class="info" id="docs">
+  <h2>School Documents</h2>
+  <p style="color:var(--muted)">Mandatory public disclosures. Click a document to view.</p>
+  <div class="grid" id="cards"></div>
+</section>
+
+<section class="info" id="about" style="padding-top:0">
+  <h2>About Us</h2>
+  <p>Bermiok Martam Sr. Sec. School is a government senior secondary school located at Bermiok Martam, Gyalshing District, Sikkim. With a rich legacy of serving the community, the school is committed to providing quality, inclusive and holistic education to children from diverse backgrounds.</p>
+  <p>Our school believes that education is not limited to academic achievement. We strive to nurture students into confident, responsible and compassionate individuals by providing opportunities in academics, sports, arts, technology, cultural activities and community engagement.</p>
+  <p>With dedicated teachers, supportive staff and a student-centred learning environment, we encourage every learner to discover their potential, develop critical thinking and build the skills required to face the challenges of the future.</p>
+  <p>The school continues to embrace modern technology and innovative teaching practices while preserving the values, traditions and cultural heritage of Sikkim. We work closely with parents and the community to create a safe, positive and inspiring environment for every student.</p>
+
+  <div class="vm">
+    <div class="card">
+      <h3>Our Vision</h3>
+      <p>To nurture responsible, confident and lifelong learners who contribute positively to society and become capable leaders of tomorrow.</p>
+    </div>
+    <div class="card">
+      <h3>Our Mission</h3>
+      <ul>
+        <li>To provide quality education in an inclusive and supportive environment.</li>
+        <li>To develop academic excellence along with creativity, discipline and critical thinking.</li>
+        <li>To encourage participation in sports, cultural activities and community service.</li>
+        <li>To promote digital literacy, innovation and 21st-century skills.</li>
+        <li>To instil values of integrity, respect, responsibility and compassion.</li>
+        <li>To empower every student to realise their full potential.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="motto">Our Motto: &ldquo;Arise to Inspire&rdquo;</div>
+
+  <div class="facts" style="margin-top:20px">
+    <div><b>Location</b><br>Bermiok Martam, Gyalshing District, Sikkim</div>
+    <div><b>Affiliation No.</b><br>1820103</div>
+    <div><b>School Code</b><br>37301</div>
+  </div>
+</section>
+
+<section class="info" id="contact" style="padding-top:0">
+  <h2>Contact Us</h2>
+  <div class="facts">
+    <div><b>Phone</b><br><a href="tel:+917363807293">7363807293</a></div>
+    <div><b>Email</b><br><a href="mailto:bermiokmartamseniorsecondarysc@gmail.com" style="word-break:break-all">bermiokmartamseniorsecondarysc@gmail.com</a></div>
+    <div><b>Address</b><br>Bermiok Martam, Gyalshing District, Sikkim</div>
+  </div>
+</section>
+
+<footer>&copy; <span id="yr"></span> Govt. Sr. Sec. School Bermiok Martam, West Sikkim &middot; Arise to Inspire<br>Ph: 7363807293 &middot; bermiokmartamseniorsecondarysc@gmail.com</footer>
+
+<div class="viewer" id="viewer">
+  <div class="vbar">
+    <b id="vTitle"></b>
+    <span><a id="vNew" href="#" target="_blank">Open in new tab</a>
+    <button id="vClose">&#10005; Close</button></span>
+  </div>
+  <iframe id="pdfFrame" title="PDF viewer" src="about:blank"></iframe>
+</div>
+
+<div class="lb" id="lb"><button id="lbClose">&#10005; Close</button><div id="lbImg"></div></div>
+
+<script>
+// ===== EDIT HERE =====
+// Add your school photos: put image files in the same folder and list them, e.g. "photos/school1.jpg"
+var SCHOOL_PHOTO = "SCHOOL_PHOTO.JPEG"; // main school photo for the top hero, e.g. "photos/school.jpg"
+var GALLERY_PHOTOS = []; // e.g. ["photos/g1.jpg","photos/g2.jpg"]
+var GALLERY_VIDEOS = []; // e.g. ["videos/annual-day.mp4"]
+var PHOTOS = []; // empty = placeholder slides shown
+var PLACEHOLDERS = ["School Building","Assembly Ground","Classroom","Science Lab","Sports Day","Cultural Programme","Library","Students"];
+// Side-menu links: "page" = the HTML page that opens when clicked (change to any link you like), "file" = its PDF
+var DOCS = [
+  {t:"Affiliation",file:"Affiliation.pdf",page:"affiliation.html"},
+  {t:"Building Safety Certificate",file:"BUILDING-SAFETY-CERTIFATE.pdf",page:"building-safety-certificate.html"},
+  {t:"Departmental NOC",file:"DEPARTMENTAL-NOC.pdf",page:"departmental-noc.html"},
+  {t:"Fee Structure",file:"FEE-STRUCTURE.pdf",page:"fee-structure.html"},
+  {t:"Fire Safety Certificate",file:"FIRE-SAFETY-CERTIFICATE.pdf",page:"fire-safety-certificate.html"},
+  {t:"Last 3 Years Result",file:"LAST-3-YRS-RESULT.pdf",page:"last-3-yrs-result.html"},
+  {t:"List of SMC Members",file:"LIST-OF-SMC-MEMBERS.pdf",page:"list-of-smc-members.html"},
+  {t:"List of PTA",file:"LIST-PTA.pdf",page:"list-pta.html"},
+  {t:"Self Certification",file:"SELF-CERTIFICATION.pdf",page:"self-certification.html"},
+  {t:"Water Safety and Sanitation",file:"WATER-SAFETY-AND-SANITATION.pdf",page:"water-safety-and-sanitation.html"},
+  {t:"Academic Calendar",file:"ACADEMIC-CALANDER.pdf",page:"academic-calendar.html"}
+];
+// =====================
+
+var gradients=["#0b3d91,#12638c","#7a2e0e,#c25b1c","#1f5f3b,#2c8a5b","#4a2c7a,#7a52c2","#0e5a7a,#1c9ac2","#7a0e3d,#c21c6a","#3d4a0e,#7aa01c","#2c3e50,#4ca1af"];
+var slidesEl=document.getElementById("slides"),dotsEl=document.getElementById("dots");
+var cur=0,timer;
+function buildSlides(items){
+  slidesEl.innerHTML="";dotsEl.innerHTML="";cur=0;
+  var real=items&&items.length,list=real?items:PLACEHOLDERS;
+  list.forEach(function(item,i){
+    var s=document.createElement("div");s.className="slide"+(i===0?" active":"");
+    if(real){s.style.backgroundImage="url('"+item+"')";}
+    else{s.style.background="linear-gradient(135deg,"+gradients[i%gradients.length]+")";s.innerHTML="<span>Photo placeholder: "+item+"</span>";}
+    slidesEl.appendChild(s);
+    var d=document.createElement("i");if(i===0)d.className="on";
+    d.onclick=function(){go(i);reset();};dotsEl.appendChild(d);
+  });
+  reset();
+}
+buildSlides(PHOTOS);
+function go(n){
+  var s=slidesEl.children,d=dotsEl.children;
+  s[cur].classList.remove("active");d[cur].classList.remove("on");
+  cur=(n+s.length)%s.length;
+  s[cur].classList.add("active");d[cur].classList.add("on");
+}
+function reset(){clearInterval(timer);timer=setInterval(function(){go(cur+1)},4500);}
+document.getElementById("next").onclick=function(){go(cur+1);reset();};
+document.getElementById("prev").onclick=function(){go(cur-1);reset();};
+reset();
+
+var side=document.getElementById("side"),ov=document.getElementById("overlay");
+function toggle(open){side.classList.toggle("open",open);ov.classList.toggle("show",open);}
+document.getElementById("burger").onclick=function(){toggle(true)};
+ov.onclick=function(){toggle(false)};
+
+var viewer=document.getElementById("viewer"),frame=document.getElementById("pdfFrame");
+function openDoc(i){
+  var d=DOCS[i];
+  document.getElementById("vTitle").textContent=d.t;
+  document.getElementById("vNew").href=d.file;
+  frame.src=d.file;
+  viewer.classList.add("show");
+}
+document.getElementById("vClose").onclick=function(){viewer.classList.remove("show");frame.src="about:blank";};
+
+var menu=document.getElementById("menu"),cards=document.getElementById("cards");
+DOCS.forEach(function(d,i){
+  var a=document.createElement("a");a.href=d.page;a.textContent=d.t;
+  menu.appendChild(a);
+  var c=document.createElement("a");c.className="card";c.href=d.page;
+  c.innerHTML="<b>"+d.t+"</b><small>View PDF</small>";
+  cards.appendChild(c);
+});
+document.getElementById("yr").textContent=new Date().getFullYear();
+
+// hero static photo
+if(SCHOOL_PHOTO){var hb=document.querySelector(".hero .bg");hb.style.backgroundImage="linear-gradient(rgba(5,15,40,.15),rgba(5,15,40,.15)),url('"+SCHOOL_PHOTO+"')";}
+
+// gallery
+function fillGallery(el,items,label,isVideo){
+  var n=items.length?items.length:6;
+  for(var i=0;i<n;i++){
+    var d=document.createElement("div");d.className="gi";
+    if(items.length){
+      if(isVideo){d.innerHTML='<video controls preload="metadata" src="'+items[i]+'"></video>';d.style.cursor="default";}
+      else{d.style.backgroundImage="url('"+items[i]+"')";(function(src){d.onclick=function(){openLb(src)}})(items[i]);}
+    }else{
+      d.style.background="linear-gradient(135deg,"+gradients[i%gradients.length]+")";
+      d.style.cursor="default";d.textContent=label+" "+(i+1)+" (placeholder)";
+    }
+    el.appendChild(d);
+  }
+}
+fillGallery(document.getElementById("galPhotos"),GALLERY_PHOTOS,"Photo",false);
+fillGallery(document.getElementById("galVideos"),GALLERY_VIDEOS,"Video",true);
+document.querySelectorAll(".tab").forEach(function(t){
+  t.onclick=function(){
+    document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
+    t.classList.add("on");
+    document.getElementById("galPhotos").style.display=t.dataset.t==="photos"?"grid":"none";
+    document.getElementById("galVideos").style.display=t.dataset.t==="videos"?"grid":"none";
+  };
+});
+var lb=document.getElementById("lb");
+function openLb(src){document.getElementById("lbImg").style.backgroundImage="url('"+src+"')";lb.classList.add("show");}
+document.getElementById("lbClose").onclick=function(){lb.classList.remove("show")};
+lb.onclick=function(e){if(e.target===lb)lb.classList.remove("show")};
+
+// ---- Auto-load every image in the "photos" folder into the slideshow (loops forever) ----
+function natural(a,b){return a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});}
+function probe(cb){
+  var exts=["jpg","jpeg","png","webp"],found=[],pending=0,N=60;
+  for(var n=1;n<=N;n++){exts.forEach(function(e){
+    pending++;
+    var im=new Image(),name="photos/"+n+"."+e;
+    im.onload=function(){found.push(name);if(--pending===0)cb(found.sort(natural));};
+    im.onerror=function(){if(--pending===0)cb(found.sort(natural));};
+    im.src=name;
+  });}
+}
+function discoverPhotos(cb){
+  fetch("photos/").then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
+    var found=[],re=/href="([^"?#]+\.(?:jpe?g|png|webp|gif))"/gi,m;
+    while((m=re.exec(t))){found.push("photos/"+encodeURI(decodeURIComponent(m[1]).split("/").pop()));}
+    if(!found.length)throw 0;
+    cb(found.sort(natural));
+  }).catch(function(){probe(cb);});
+}
+if(!PHOTOS.length){
+  discoverPhotos(function(found){
+    if(!found.length)return;
+    buildSlides(found);
+    if(!GALLERY_PHOTOS.length){var gp=document.getElementById("galPhotos");gp.innerHTML="";fillGallery(gp,found,"Photo",false);}
+  });
+}
+</script>
+</body>
+</html>
